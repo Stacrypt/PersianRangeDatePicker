@@ -541,16 +541,19 @@ public class DateRangeCalendarView extends LinearLayout {
      */
     private void makeAsSelectedDate(DayContainer container, int stripType) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
+        Boolean isRtl = container.rootView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         if (stripType == STRIP_TYPE_LEFT) {
-            GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg_left);
+            int resourceName = (isRtl) ? R.drawable.range_bg_right : R.drawable.range_bg_left;
+            GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, resourceName);
             mDrawable.setColor(rangeStripColor);
             container.strip.setBackground(mDrawable);
-            layoutParams.setMargins(20, 0, 0, 0);
+            layoutParams.setMarginStart(20);
         } else if (stripType == STRIP_TYPE_RIGHT) {
-            GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg_right);
+            int resourceName = (isRtl) ? R.drawable.range_bg_left : R.drawable.range_bg_right;
+            GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, resourceName);
             mDrawable.setColor(rangeStripColor);
             container.strip.setBackground(mDrawable);
-            layoutParams.setMargins(0, 0, 20, 0);
+            layoutParams.setMarginEnd(20);
         } else {
             container.strip.setBackgroundColor(Color.TRANSPARENT);
             layoutParams.setMargins(0, 0, 0, 0);
