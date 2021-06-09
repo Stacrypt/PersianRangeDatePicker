@@ -1,66 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rlHeaderCalendar"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutDirection="rtl"
-    android:background="@color/headerBackgroundColor">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/imgVNavLeft"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:scaleType="centerInside"
-        android:tint="@android:color/white"
-        android:visibility="visible"
-        app:srcCompat="@drawable/ic_vector_navigate_left" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rlHeaderCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/headerBackgroundColor"
+        android:layoutDirection="rtl">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/picker_title"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/from_indicator"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_vector_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <TextView
+            android:id="@+id/date_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/from_indicator"
+            app:layout_constraintStart_toEndOf="@id/from_indicator"
+            app:layout_constraintTop_toTopOf="@id/from_indicator"
+            tools:text="From" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="0.8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/from_indicator"
+            app:layout_constraintTop_toBottomOf="@id/from_indicator" />
+
+        <View
+            android:id="@+id/to_indicator"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/ic_vector_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <ImageView
+            android:id="@+id/dashed_line"
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            app:srcCompat="@drawable/dashed_line"
+            app:layout_constraintStart_toStartOf="@id/to_indicator"
+            app:layout_constraintEnd_toEndOf="@id/to_indicator"
+            app:layout_constraintTop_toBottomOf="@id/from_indicator"
+            app:layout_constraintBottom_toTopOf="@id/to_indicator"/>
+
+        <TextView
+            android:id="@+id/date_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/to_indicator"
+            app:layout_constraintStart_toEndOf="@id/to_indicator"
+            app:layout_constraintTop_toTopOf="@id/to_indicator"
+            tools:text="To" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_toLeftOf="@+id/imgVNavRight"
-        android:layout_toRightOf="@+id/imgVNavLeft"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
 
-        <com.sardari.daterangepicker.customviews.CustomTextView
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgVNavLeft"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_vector_navigate_left"
+            app:tint="?android:textColorSecondary" />
+
+
+        <TextView
             android:id="@+id/tvYearTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:tag="dateTitle"
             android:text="فروردین 1397"
-            android:textColor="@color/header_title_color"
+            android:textColor="?android:textColorSecondary"
             android:textSize="@dimen/text_size_title" />
 
-        <TextView
-            android:id="@+id/tvYearGeorgianTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="June - July"
-            android:textColor="@color/header_title_color" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgVNavRight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_vector_navigate_right"
+            app:tint="?android:textColorSecondary" />
 
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/imgVNavRight"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:scaleType="center"
-        android:tint="@android:color/white"
-        android:visibility="visible"
-        app:srcCompat="@drawable/ic_vector_navigate_right" />
+</LinearLayout>
 
-</RelativeLayout>

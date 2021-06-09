@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Header colors -->
-    <color name="headerBackgroundColor">#040078</color>
+    <color name="headerBackgroundColor">#4885ED</color>
 
     <!--Button colors-->
     <color name="buttonBackgroundColor">@color/headerBackgroundColor</color>

@@ -1,6 +1,7 @@
 package com.sardari.daterangepicker.customviews;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -36,15 +37,14 @@ public class DateRangeCalendarView extends LinearLayout {
     private AttributeSet attrs;
     private LinearLayout llDaysContainer;
     private LinearLayout llTitleWeekContainer;
-    private CustomTextView tvYearTitle;
-    private TextView tvYearGeorgianTitle;
+    private TextView tvYearTitle, tvDateFrom, tvDateTo, tvTitle;
     private ImageView imgVNavLeft, imgVNavRight;
     private Locale locale;
 
     private PersianCalendar currentCalendarMonth, minSelectedDate, maxSelectedDate;
     private ArrayList<Integer> selectedDatesRange = new ArrayList<>();
     private Typeface typeface;
-    private RelativeLayout rlHeaderCalendar;
+    private ConstraintLayout rlHeaderCalendar;
 
     private static final int STRIP_TYPE_NONE = 0;
     private static final int STRIP_TYPE_LEFT = 1;
@@ -167,7 +167,9 @@ public class DateRangeCalendarView extends LinearLayout {
         llDaysContainer = mainView.findViewById(R.id.llDaysContainer);
         llTitleWeekContainer = mainView.findViewById(R.id.llTitleWeekContainer);
         tvYearTitle = mainView.findViewById(R.id.tvYearTitle);
-        tvYearGeorgianTitle = mainView.findViewById(R.id.tvYearGeorgianTitle);
+        tvDateFrom = mainView.findViewById(R.id.date_from);
+        tvDateTo = mainView.findViewById(R.id.date_to);
+        tvTitle = mainView.findViewById(R.id.title);
         imgVNavLeft = mainView.findViewById(R.id.imgVNavLeft);
         imgVNavRight = mainView.findViewById(R.id.imgVNavRight);
 
@@ -368,46 +370,6 @@ public class DateRangeCalendarView extends LinearLayout {
 
         tvYearTitle.setText(String.format(locale, "%s %d", month.getPersianMonthName(), month.getPersianYear()));
 
-        int _month = month.getPersianMonth() + 1;
-        switch (_month) {
-            case 1:
-                tvYearGeorgianTitle.setText(String.format(locale, "March - April %d", month.get(Calendar.YEAR)));
-                break;
-            case 2:
-                tvYearGeorgianTitle.setText(String.format(locale, "April - May %d", month.get(Calendar.YEAR)));
-                break;
-            case 3:
-                tvYearGeorgianTitle.setText(String.format(locale, "May - June %d", month.get(Calendar.YEAR)));
-                break;
-            case 4:
-                tvYearGeorgianTitle.setText(String.format(locale, "June - July %d", month.get(Calendar.YEAR)));
-                break;
-            case 5:
-                tvYearGeorgianTitle.setText(String.format(locale, "July - August %d", month.get(Calendar.YEAR)));
-                break;
-            case 6:
-                tvYearGeorgianTitle.setText(String.format(locale, "August - September %d", month.get(Calendar.YEAR)));
-                break;
-            case 7:
-                tvYearGeorgianTitle.setText(String.format(locale, "September - October %d", month.get(Calendar.YEAR)));
-                break;
-            case 8:
-                tvYearGeorgianTitle.setText(String.format(locale, "October - November %d", month.get(Calendar.YEAR)));
-                break;
-            case 9:
-                tvYearGeorgianTitle.setText(String.format(locale, "November - December %d", month.get(Calendar.YEAR)));
-                break;
-            case 10:
-                tvYearGeorgianTitle.setText(String.format("December %s - January %s ", month.get(Calendar.YEAR), month.get(Calendar.YEAR) + 1));
-                break;
-            case 11:
-                tvYearGeorgianTitle.setText(String.format(locale, "January - February %d", month.get(Calendar.YEAR)));
-                break;
-            case 12:
-                tvYearGeorgianTitle.setText(String.format(locale, "February - March %d", month.get(Calendar.YEAR)));
-                break;
-        }
-
         currentCalendarMonth = (PersianCalendar) month.clone();
 
         int startDay = month.get(Calendar.DAY_OF_WEEK);
@@ -495,8 +457,6 @@ public class DateRangeCalendarView extends LinearLayout {
     private void setToday(DayContainer container, PersianCalendar persianCalendar) {
         if (getCurrentDate().getPersianShortDate().compareTo(persianCalendar.getPersianShortDate()) == 0) {
             container.imgEvent.setVisibility(VISIBLE);
-            container.imgEvent.setColorFilter(todayColor, android.graphics.PorterDuff.Mode.SRC_IN);
-//            container.tvDate.setTextColor(todayColor);
             container.tvDate.setTypeface(typeface, Typeface.BOLD);
         } else {
             container.imgEvent.setVisibility(GONE);
@@ -597,13 +557,24 @@ public class DateRangeCalendarView extends LinearLayout {
         }
 
         container.strip.setLayoutParams(layoutParams);
-        GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.shape_rect);
+        GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.shape_circle);
         mDrawable.setColor(selectedDateCircleColor);
         container.tvDate.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
         container.tvDate.setTextColor(selectedDateColor);
 //        container.imgEvent.setColorFilter(selectedDateColor, PorterDuff.Mode.SRC_IN);
         container.rootView.setVisibility(VISIBLE);
+
+        if (minSelectedDate != null)
+            tvDateFrom.setText(minSelectedDate.getPersianLongDate());
+        else
+            tvDateFrom.setText(null);
+
+        if (maxSelectedDate != null)
+            tvDateTo.setText(maxSelectedDate.getPersianLongDate());
+        else
+            tvDateTo.setText(null);
+
     }
 
     /**
@@ -713,7 +684,7 @@ public class DateRangeCalendarView extends LinearLayout {
 
     private void setWeekTitleColor() {
         for (int i = 0; i < llTitleWeekContainer.getChildCount(); i++) {
-            CustomTextView textView = (CustomTextView) llTitleWeekContainer.getChildAt(i);
+            TextView textView = (TextView) llTitleWeekContainer.getChildAt(i);
             textView.setTextColor(weekColor);
             textView.setTextSize(textSizeWeek);
         }
@@ -725,6 +696,9 @@ public class DateRangeCalendarView extends LinearLayout {
 
             drawCalendarForMonth(currentCalendarMonth);
             tvYearTitle.setTypeface(this.typeface);
+            tvTitle.setTypeface(this.typeface);
+            tvDateTo.setTypeface(this.typeface);
+            tvDateFrom.setTypeface(this.typeface);
 
             for (int i = 0; i < llTitleWeekContainer.getChildCount(); i++) {
                 TextView textView = (TextView) llTitleWeekContainer.getChildAt(i);
@@ -949,6 +923,14 @@ public class DateRangeCalendarView extends LinearLayout {
 
     public void setTextSizeDate(float textSizeDate) {
         this.textSizeDate = textSizeDate != 0 ? textSizeDate : this.textSizeDate;
+    }
+
+    public String getTitle() {
+        return tvTitle.getText().toString();
+    }
+
+    public void setTitle(String title) {
+        tvTitle.setText(title);
     }
 
     //endregion

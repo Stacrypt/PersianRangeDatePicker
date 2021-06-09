@@ -8,10 +8,6 @@
         android:width="100dp"
         android:height="1dp" />
 
-    <gradient
-        android:angle="180"
-        android:centerColor="#b6b6b6"
-        android:endColor="#1EB6B6B6"
-        android:startColor="#1eb6b6b6" />
+    <solid android:color="#1EB6B6B6" />
 
 </shape>
