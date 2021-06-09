@@ -2,7 +2,7 @@ package com.sardari.daterangepicker.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.util.SimpleArrayMap;
+import androidx.collection.SimpleArrayMap;
 
 public class FontUtils {
     private static String FONT_NAME = "IranYekan";
