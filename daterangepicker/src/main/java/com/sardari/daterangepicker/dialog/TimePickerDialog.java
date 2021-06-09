@@ -7,15 +7,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.sardari.daterangepicker.R;
-import com.sardari.daterangepicker.customviews.CustomTextView;
 
 import java.util.Calendar;
 
 public class TimePickerDialog extends Dialog {
-    private CustomTextView tvHeaderTitle, tvDialogDone, tvDialogCancel;
+    private TextView tvHeaderTitle, tvDialogDone, tvDialogCancel;
 
     private String mTitle;
     private int hours, minutes;

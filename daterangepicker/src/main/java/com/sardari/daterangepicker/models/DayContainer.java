@@ -5,12 +5,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sardari.daterangepicker.customviews.CustomTextView;
 import com.sardari.daterangepicker.utils.PersianCalendar;
 
 public class DayContainer {
     public RelativeLayout rootView;
-    public CustomTextView tvDate;
+    public TextView tvDate;
     public TextView tvDateGeorgian;
     public AppCompatImageView imgEvent;
     public View strip;
@@ -18,7 +17,7 @@ public class DayContainer {
     public DayContainer(RelativeLayout rootView) {
         this.rootView = rootView;
         strip = rootView.getChildAt(0);
-        tvDate = (CustomTextView) rootView.getChildAt(1);
+        tvDate = (TextView) rootView.getChildAt(1);
         tvDateGeorgian = (TextView) rootView.getChildAt(3);
         imgEvent = (AppCompatImageView) rootView.getChildAt(2);
     }

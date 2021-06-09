@@ -5,7 +5,7 @@
 
     <View style="@style/StripRange" />
 
-    <com.sardari.daterangepicker.customviews.CustomTextView
+    <TextView
         android:id="@+id/dayOfMonthText"
         style="@style/DayOfMonthStyle"
         android:text="0" />

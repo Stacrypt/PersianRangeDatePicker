@@ -727,7 +727,7 @@ public class DateRangeCalendarView extends LinearLayout {
             tvYearTitle.setTypeface(this.typeface);
 
             for (int i = 0; i < llTitleWeekContainer.getChildCount(); i++) {
-                CustomTextView textView = (CustomTextView) llTitleWeekContainer.getChildAt(i);
+                TextView textView = (TextView) llTitleWeekContainer.getChildAt(i);
                 textView.setTypeface(this.typeface);
             }
         }
