@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -366,7 +367,7 @@ public class DateRangeCalendarView extends LinearLayout {
      * @param month
      */
     private void drawCalendarForMonth(PersianCalendar month) {
-        tvYearTitle.setTextSize(textSizeTitle);
+        tvYearTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSizeTitle);
 
         tvYearTitle.setText(String.format(locale, "%s %d", month.getPersianMonthName(), month.getPersianYear()));
 
@@ -390,7 +391,7 @@ public class DateRangeCalendarView extends LinearLayout {
                     container.tvDate.setTypeface(typeface);
                 }
 
-                container.tvDate.setTextSize(textSizeDate);
+                container.tvDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeDate);
 
                 drawDayContainer(container, month);
 
@@ -458,6 +459,7 @@ public class DateRangeCalendarView extends LinearLayout {
         if (getCurrentDate().getPersianShortDate().compareTo(persianCalendar.getPersianShortDate()) == 0) {
             container.imgEvent.setVisibility(VISIBLE);
             container.tvDate.setTypeface(typeface, Typeface.BOLD);
+            container.imgEvent.setColorFilter(todayColor, android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
             container.imgEvent.setVisibility(GONE);
             container.tvDate.setTypeface(typeface, Typeface.NORMAL);
@@ -548,15 +550,18 @@ public class DateRangeCalendarView extends LinearLayout {
             mDrawable.setColor(rangeStripColor);
             container.strip.setBackground(mDrawable);
             layoutParams.setMarginStart(20);
+            layoutParams.setMarginEnd(0);
         } else if (stripType == STRIP_TYPE_RIGHT) {
             int resourceName = (isRtl) ? R.drawable.range_bg_left : R.drawable.range_bg_right;
             GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, resourceName);
             mDrawable.setColor(rangeStripColor);
             container.strip.setBackground(mDrawable);
             layoutParams.setMarginEnd(20);
+            layoutParams.setMarginStart(0);
         } else {
             container.strip.setBackgroundColor(Color.TRANSPARENT);
-            layoutParams.setMargins(0, 0, 0, 0);
+            layoutParams.setMarginStart(0);
+            layoutParams.setMarginEnd(0);
         }
 
         container.strip.setLayoutParams(layoutParams);
@@ -596,7 +601,8 @@ public class DateRangeCalendarView extends LinearLayout {
         container.rootView.setVisibility(VISIBLE);
 
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
-        layoutParams.setMargins(0, 0, 0, 0);
+        layoutParams.setMarginStart(0);
+        layoutParams.setMarginEnd(0);
         container.strip.setLayoutParams(layoutParams);
     }
 
@@ -689,7 +695,7 @@ public class DateRangeCalendarView extends LinearLayout {
         for (int i = 0; i < llTitleWeekContainer.getChildCount(); i++) {
             TextView textView = (TextView) llTitleWeekContainer.getChildAt(i);
             textView.setTextColor(weekColor);
-            textView.setTextSize(textSizeWeek);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeWeek);
         }
     }
 
