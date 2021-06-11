@@ -723,6 +723,8 @@ public class DateRangeCalendarView extends LinearLayout {
         drawCalendarForMonth(getCurrentMonth(currentDate));
         setWeekTitleColor();
         rlHeaderCalendar.setBackgroundColor(headerBackgroundColor);
+        if (minSelectedDate != null && minSelectedDate != null)
+            drawSelectedDateRange(minSelectedDate, maxSelectedDate);
     }
 
     //region selectionMode -> Getter/Setter
@@ -802,6 +804,13 @@ public class DateRangeCalendarView extends LinearLayout {
     public void setShowGregorianDate(boolean showGregorianDate) {
         this.showGregorianDate = showGregorianDate;
     }
+
+    public void setSelectedRange(PersianCalendar startSelectedDate, PersianCalendar endSelectedDate) {
+        this.minSelectedDate = startSelectedDate;
+        this.maxSelectedDate = endSelectedDate;
+        drawSelectedDateRange(startSelectedDate, endSelectedDate);
+    }
+
     //endregion
 
     //region messageEnterEndDate
