@@ -684,6 +684,9 @@ public class DateRangeCalendarView extends LinearLayout {
         minSelectedDate = null;
         maxSelectedDate = null;
 
+        tvDateFrom.setText(null);
+        tvDateTo.setText(null);
+
         drawCalendarForMonth(currentCalendarMonth);
 
         if (calendarListener != null) {
