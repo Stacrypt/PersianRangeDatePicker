@@ -456,7 +456,8 @@ public class DateRangeCalendarView extends LinearLayout {
 
     //---------------------------------------------------------------------------------------------
     private void setToday(DayContainer container, PersianCalendar persianCalendar) {
-        if (getCurrentDate().getPersianShortDate().compareTo(persianCalendar.getPersianShortDate()) == 0) {
+        PersianCalendar today = new PersianCalendar();
+        if (today.getPersianShortDate().compareTo(persianCalendar.getPersianShortDate()) == 0) {
             container.imgEvent.setVisibility(VISIBLE);
             container.tvDate.setTypeface(typeface, Typeface.BOLD);
             container.imgEvent.setColorFilter(todayColor, android.graphics.PorterDuff.Mode.SRC_IN);
