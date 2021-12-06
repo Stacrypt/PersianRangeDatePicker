@@ -13,18 +13,28 @@
         android:background="@color/headerBackgroundColor"
         android:layoutDirection="rtl">
 
+        <ImageButton
+            android:id="@+id/clear_selected_range"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            app:tint="#FFFFFF"
+            app:srcCompat="@drawable/ic_round_refresh_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/picker_title"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/clear_selected_range" />
 
         <View
             android:id="@+id/from_indicator"

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,6 +41,7 @@ public class DateRangeCalendarView extends LinearLayout {
     private LinearLayout llTitleWeekContainer;
     private TextView tvYearTitle, tvDateFrom, tvDateTo, tvTitle;
     private ImageView imgVNavLeft, imgVNavRight;
+    private ImageButton clearSelectedRange;
     private Locale locale;
 
     private PersianCalendar currentCalendarMonth, minSelectedDate, maxSelectedDate;
@@ -173,8 +175,11 @@ public class DateRangeCalendarView extends LinearLayout {
         tvTitle = mainView.findViewById(R.id.title);
         imgVNavLeft = mainView.findViewById(R.id.imgVNavLeft);
         imgVNavRight = mainView.findViewById(R.id.imgVNavRight);
+        clearSelectedRange = mainView.findViewById(R.id.clear_selected_range);
 
         rlHeaderCalendar = mainView.findViewById(R.id.rlHeaderCalendar);
+
+        clearSelectedRange.setEnabled(false);
 
         setListeners();
 
@@ -226,6 +231,12 @@ public class DateRangeCalendarView extends LinearLayout {
             }
         });
         //endregion
+        clearSelectedRange.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetAllSelectedViews();
+            }
+        });
     }
 
     private final OnClickListener dayClickListener = new OnClickListener() {
@@ -615,6 +626,7 @@ public class DateRangeCalendarView extends LinearLayout {
      */
     private void drawSelectedDateRange(PersianCalendar startDate, PersianCalendar lastDate) {
         selectedDatesRange.clear();
+        clearSelectedRange.setEnabled(true);
         int startDateKey = DayContainer.GetContainerKey(startDate);
         int lastDateKey = DayContainer.GetContainerKey(lastDate);
 
@@ -693,6 +705,8 @@ public class DateRangeCalendarView extends LinearLayout {
         if (calendarListener != null) {
             calendarListener.onCancel();
         }
+
+        clearSelectedRange.setEnabled(false);
     }
 
     private void setWeekTitleColor() {
